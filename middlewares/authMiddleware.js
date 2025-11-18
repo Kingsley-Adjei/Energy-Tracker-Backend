@@ -13,9 +13,12 @@ const authMiddleware = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
 
     // Verify the token with Supabase
-    const { data: user, error } = await supabase.auth.getUser(token);
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser(token);
 
-    if (error || !user) {
+    if (error || !data?.user) {
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
 

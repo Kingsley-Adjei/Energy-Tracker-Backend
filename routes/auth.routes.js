@@ -1,9 +1,6 @@
 import express from "express";
 import {
-  signIn,
-  signOut,
-  signUp,
-  oauthSignIn,
+  signup,
   oauth,
   signout,
   signin,
@@ -12,7 +9,7 @@ import {
 const AuthRouter = express.Router();
 
 // Route for signing up with email and password
-AuthRouter.post("/signup", signUp);
+AuthRouter.post("/signup", signup);
 
 // Route for signing in with email and password
 AuthRouter.post("/signin", signin);

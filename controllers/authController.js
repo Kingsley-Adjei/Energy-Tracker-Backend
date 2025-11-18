@@ -7,7 +7,7 @@ import {
 
 export const signup = async (req, res) => {
   try {
-    const user = await signUp(req.body);
+    const user = await signUp(req.body.email, req.body.password);
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
     res
@@ -18,7 +18,7 @@ export const signup = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
-    const token = await signIn(req.body);
+    const token = await signIn(req.body.email, req.body.password);
     res.status(200).json({ message: "User signed in successfully", token });
   } catch (error) {
     res
