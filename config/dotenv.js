@@ -6,7 +6,7 @@ dotenv.config();
 export const {
   NODE_ENV,
   PORT,
-  SUPABASE_KEY,
+  SUPABASE_API_KEY,
   SUPABASE_PROJECT_ID,
-  SUPABASE_URL,
+  SUPABASE_PROJECT_URL,
 } = process.env;

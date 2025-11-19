@@ -18,7 +18,7 @@ const authMiddleware = async (req, res, next) => {
       error,
     } = await supabase.auth.getUser(token);
 
-    if (error || !data?.user) {
+    if (error || !user) {
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
 
