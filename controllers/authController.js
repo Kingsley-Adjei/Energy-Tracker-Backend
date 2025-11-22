@@ -1,5 +1,5 @@
 import {
-  signInWithOAuth,
+  signInWithOAuthService,
   signIn,
   signUp,
   signOut,
@@ -40,11 +40,18 @@ export const signout = async (req, res) => {
 
 export const oauth = async (req, res) => {
   try {
-    const user = await signInWithOAuth(req.body);
-    res.status(200).json({ message: "OAuth successful", user });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error during OAuth", error: error.message });
+    const { idToken, email, name, profileImage } = req.body;
+
+    // Call the service instead of talking to Supabase directly
+    const data = await signInWithOAuthService({
+      idToken,
+      email,
+      name,
+      profileImage,
+    });
+
+    res.status(200).json(data); // data already has success, token, user, isNewUser
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };

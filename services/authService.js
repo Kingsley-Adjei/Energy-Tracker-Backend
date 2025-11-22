@@ -22,10 +22,28 @@ export const signOut = async () => {
   return true;
 };
 
-export const signInWithOAuth = async (provider) => {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider,
+export const signInWithOAuthService = async ({
+  idToken,
+  email,
+  name,
+  profileImage,
+}) => {
+  const { data, error } = await supabase.auth.signInWithIdToken({
+    provider: "google",
+    token: idToken,
   });
+
   if (error) throw error;
-  return data;
+
+  return {
+    success: true,
+    token: data.session.access_token,
+    user: {
+      id: data.user.id,
+      email,
+      name,
+      profileImage,
+    },
+    isNewUser: data.user.created_at === data.user.updated_at,
+  };
 };
